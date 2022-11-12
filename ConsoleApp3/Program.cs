@@ -1,4 +1,6 @@
 ﻿using ConsoleApp3;
+using System.Reactive.Disposables;
+using System.Reactive.Linq;
 using System.Reactive.Subjects;
 
 internal class Program
@@ -24,7 +26,13 @@ internal class Program
         //PaternsObserver.PaternObserver();
 
 
-        ReativePaternSubject.ReactiveSubject();
+        //ReativePaternSubject.ReactiveSubject();
+
+
+
+        //observableReturn();
+
+        ReactivePaternObservable.ObservableCreate();
 
     }
 

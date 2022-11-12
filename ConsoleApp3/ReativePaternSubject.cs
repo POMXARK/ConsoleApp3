@@ -3,7 +3,9 @@ using System.Reactive.Subjects;
 
 public static class ReativePaternSubject
 {
-
+    /// <summary>
+    /// Синхронный обьект, преостанавливает поток выполнения, до завершения
+    /// </summary>
     public static void ReactiveSubject()
     {
         // System.Reacteve (Rx.Net)
