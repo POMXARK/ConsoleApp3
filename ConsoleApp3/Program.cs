@@ -14,10 +14,12 @@ internal class Program
 
         //imperativeStyle();
 
+        //CastomPaternObserver();
+
         PaternObserver();
     }
 
-    private static void PaternObserver()
+    private static void CastomPaternObserver()
     {
         /// реализация патерна наблюдатель
         /// работает так же как события,
@@ -29,8 +31,8 @@ internal class Program
         var bill = new Reader("Bill");
 
         /// подписка на наблюдаемое
-        newsAggregator.Subscibe(stive);
-        newsAggregator.Subscibe(bill);
+        newsAggregator.Subscribe(stive);
+        newsAggregator.Subscribe(bill);
 
         /// создание новостей 
         var news1 = new News("Title#1", "Content#1");
@@ -42,9 +44,41 @@ internal class Program
         Thread.Sleep(1000);
         newsAggregator.Notify(news2);
         Thread.Sleep(500);
-        newsAggregator.UnSubscibe(bill);
+        newsAggregator.UnSubscribe(bill);
         newsAggregator.Notify(news3);
     }
+
+
+    private static void PaternObserver()
+    {
+        /// реализация патерна наблюдатель 
+        /// с использованием встроенных интерфейсов
+        /// работает так же как события,
+        /// события плохо подаются тестированию
+
+        /// создание
+        var newsAggregator = new NewsAgrigatorV2();
+        var stive = new ReaderV2("Stive");
+        var bill = new ReaderV2("Bill");
+
+        /// подписка на наблюдаемое
+        var stiveSubscription = newsAggregator.Subscribe(stive);
+        var billSubscription = newsAggregator.Subscribe(bill);
+
+        /// создание новостей 
+        var news1 = new News("Title#1", "Content#1");
+        var news2 = new News("Title#2", "Content#2");
+        var news3 = new News("Title#3", "Content#3");
+
+        /// послать уведомления
+        newsAggregator.Notify(news1);
+        Thread.Sleep(1000);
+        newsAggregator.Notify(news2);
+        Thread.Sleep(500);
+        billSubscription.Dispose();
+        newsAggregator.Notify(news3);
+    }
+
 
     /// <summary>
     /// 20 10 императивный стиль програмирование,

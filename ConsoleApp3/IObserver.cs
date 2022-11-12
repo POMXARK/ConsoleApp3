@@ -10,7 +10,7 @@ namespace ConsoleApp3
     /// observe ( наблюдаталь - патерн проектирования который реализует механизм подписок)
     /// </summary>
     /// <typeparam name="TypeDefinition"></typeparam>
-    public interface IObserver<TypeDefinition>
+    public interface IMyIObserver<TypeDefinition>
     {
         /// <summary>
         /// Этот метод будет вызываться, 

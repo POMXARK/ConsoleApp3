@@ -10,7 +10,7 @@ namespace ConsoleApp3
     /// Читатель, наблюдает за новосным агрегатором
     /// Эксемпляр типа News будет приходить при получении очередной новости
     /// </summary>
-    public class Reader: IObserver<News>
+    public class Reader: IMyIObserver<News>
     {
         public String Name { get; set; }
 

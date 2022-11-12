@@ -10,30 +10,27 @@ namespace ConsoleApp3
     /// Агрегатор - агрегирует новости (собирает в одну кучу)
     /// Хранит список читателей, которые подписались на него
     /// </summary>
-    public class NewsAgrigator: IMyIObservable<News>
+    public class NewsAgrigatorV2: IObservable<News>
     {
-        private readonly List<IMyIObserver<News>> observers;
+        private readonly List<IObserver<News>> observers;
 
-        public NewsAgrigator()
+        public NewsAgrigatorV2()
         {
-            observers = new List<IMyIObserver<News>>();
+            observers = new List<IObserver<News>>();
         }
 
-        public void Subscribe(IMyIObserver<News> observer)
+        public IDisposable Subscribe(IObserver<News> observer)
         {
             observers.Add(observer);
+
+            return new Unsubsciber<News>(observers, observer);
         }
 
-        public void UnSubscribe(IMyIObserver<News> observer)
+        public void Notify(News news)
         {
-            observers.Remove(observer);
-        }
-
-        public void Notify(News data)
-        {
-            foreach (IMyIObserver<News> observer in observers)
+            foreach (IObserver<News> observer in observers)
             {
-                observer.Update(data);
+                observer.OnNext(news);
             }
         }
     }
