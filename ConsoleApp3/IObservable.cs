@@ -17,8 +17,8 @@ namespace ConsoleApp3
         /// подписчики определяются IObserver
         /// </summary>
         /// <param name="type"></param>
-        void Subscibe(TypeDefinition observer);
-        void UnSubscibe(TypeDefinition observer);
+        void Subscibe(IObserver<TypeDefinition> observer);
+        void UnSubscibe(IObserver<TypeDefinition> observer);
 
         /// <summary>
         /// Запускает процедуру уведомления всех подписчиков (observeble)
