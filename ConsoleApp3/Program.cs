@@ -1,4 +1,5 @@
 ﻿using ConsoleApp3;
+using System.Reactive.Subjects;
 
 internal class Program
 {
@@ -6,79 +7,26 @@ internal class Program
     {
         // если вторая перменная отсдеживает изменение первой => реактивный стиль
 
-        // observer ( наблюдаталь - патерн проектирования который реализует механизм подписок)
-        // это когда есть наблюдатель observer и несколько наблюдаемых observable подписанных на него
-        // observeble наблюдают за всеми изменениями и каким то образом на них реагируют
-        // пример: старт забега по свистку , спортсмены - наблюдатели , свисток - наблюдаемый
+        // наблюдаемая последовательность это контейнер ( шаблон строитель, но четко упорядоченный)
+        // пример: по дял работы с финансовыми биржами, на вход много информации, пользователь желает получить некую выжемку
+        // выжемка должна автаматически обновляться в реальном времени в зависимости от изменений на рынках
+        // решение: организовать последовательность блоков информации которые приходят с бирж
+        // в реальном времени фильтровать, сортировать и агрегировать необходимым образом
+        // и при поступлении каждого нового блока данных, необходимо тут же прогонять через весь конвеер из агрегаторов, сортировщиков и фильтров
+        // выдавать пользователю лишь конечный результат
+
 
 
         //imperativeStyle();
 
-        //CastomPaternObserver();
+        //PaternsObserver.CastomPaternObserver();
 
-        PaternObserver();
+        //PaternsObserver.PaternObserver();
+
+
+        ReativePaternSubject.ReactiveSubject();
+
     }
-
-    private static void CastomPaternObserver()
-    {
-        /// реализация патерна наблюдатель
-        /// работает так же как события,
-        /// события плохо подаются тестированию
-
-        /// создание
-        var newsAggregator = new NewsAgrigator();
-        var stive = new Reader("Stive");
-        var bill = new Reader("Bill");
-
-        /// подписка на наблюдаемое
-        newsAggregator.Subscribe(stive);
-        newsAggregator.Subscribe(bill);
-
-        /// создание новостей 
-        var news1 = new News("Title#1", "Content#1");
-        var news2 = new News("Title#2", "Content#2");
-        var news3 = new News("Title#3", "Content#3");
-
-        /// послать уведомления
-        newsAggregator.Notify(news1);
-        Thread.Sleep(1000);
-        newsAggregator.Notify(news2);
-        Thread.Sleep(500);
-        newsAggregator.UnSubscribe(bill);
-        newsAggregator.Notify(news3);
-    }
-
-
-    private static void PaternObserver()
-    {
-        /// реализация патерна наблюдатель 
-        /// с использованием встроенных интерфейсов
-        /// работает так же как события,
-        /// события плохо подаются тестированию
-
-        /// создание
-        var newsAggregator = new NewsAgrigatorV2();
-        var stive = new ReaderV2("Stive");
-        var bill = new ReaderV2("Bill");
-
-        /// подписка на наблюдаемое
-        var stiveSubscription = newsAggregator.Subscribe(stive);
-        var billSubscription = newsAggregator.Subscribe(bill);
-
-        /// создание новостей 
-        var news1 = new News("Title#1", "Content#1");
-        var news2 = new News("Title#2", "Content#2");
-        var news3 = new News("Title#3", "Content#3");
-
-        /// послать уведомления
-        newsAggregator.Notify(news1);
-        Thread.Sleep(1000);
-        newsAggregator.Notify(news2);
-        Thread.Sleep(500);
-        billSubscription.Dispose();
-        newsAggregator.Notify(news3);
-    }
-
 
     /// <summary>
     /// 20 10 императивный стиль програмирование,
